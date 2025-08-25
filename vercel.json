@@ -1,0 +1,10 @@
+{
+  "build": {
+    "env": {
+      "NPM_COMMAND": "npm"
+    }
+  },
+  "installCommand": "npm install --prefix frontend && npm install --prefix backend",
+  "buildCommand": "npm run build --prefix frontend",
+  "rootDirectory": "frontend"
+}
