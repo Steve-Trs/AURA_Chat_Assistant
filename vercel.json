@@ -15,8 +15,5 @@
       "src": "/(.*)",
       "dest": "frontend/AURA_AI/dist/index.html"
     }
-  ],
-  "installCommand": "npm install --prefix frontend/AURA_AI && npm install --prefix backend",
-  "buildCommand": "npm run build --prefix frontend/AURA_AI",
-  "outputDirectory": "dist"
+  ]
 }
