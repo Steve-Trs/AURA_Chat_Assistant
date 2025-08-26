@@ -4,13 +4,6 @@
     {
       "src": "backend/index.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "frontend/AURA_AI/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
     }
   ],
   "routes": [
@@ -22,5 +15,8 @@
       "src": "/(.*)",
       "dest": "frontend/AURA_AI/dist/index.html"
     }
-  ]
+  ],
+  "installCommand": "npm install --prefix frontend/AURA_AI && npm install --prefix backend",
+  "buildCommand": "npm run build --prefix frontend/AURA_AI",
+  "outputDirectory": "dist"
 }
