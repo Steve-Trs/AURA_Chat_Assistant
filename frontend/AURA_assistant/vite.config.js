@@ -9,3 +9,4 @@ export default defineConfig({
     include: ["@supabase/supabase-js"],
   },
 });
+//optimizeDeps to fix supabase issue
