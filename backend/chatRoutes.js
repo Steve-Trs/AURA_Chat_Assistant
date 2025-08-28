@@ -86,6 +86,8 @@ const buildEnhancedPrompt = async () => {
       });
     }
 
+    console.log("Final enhanced prompt length:", enhancedPrompt.length);
+    console.log("Final enhanced prompt :", enhancedPrompt);
     return enhancedPrompt;
   } catch (error) {
     console.error("Error building enhanced prompt:", error);
