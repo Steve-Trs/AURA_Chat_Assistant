@@ -8,7 +8,7 @@ import {
   BookOpen,
 } from "lucide-react";
 
-const API_URL = "http://localhost:8888/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8888/api";
 
 const AddSuggestion = ({ onClose }) => {
   const [type, setType] = useState("qa"); // 'qa' or 'instruction'
@@ -36,7 +36,7 @@ const AddSuggestion = ({ onClose }) => {
 
     try {
       let requestBody = {};
-      let endpoint = ""; // FIX: We will now set the endpoint dynamically
+      let endpoint = "";
 
       if (type === "qa") {
         requestBody = {
@@ -50,11 +50,10 @@ const AddSuggestion = ({ onClose }) => {
           content: instruction.trim(),
           created_by: "user",
         };
-        endpoint = `${API_URL}/instructions`; // FIX: Use the correct instructions endpoint
+        endpoint = `${API_URL}/instructions`;
       }
 
       const response = await fetch(endpoint, {
-        // FIX: Use the dynamic endpoint variable
         method: "POST",
         headers: {
           "Content-Type": "application/json",

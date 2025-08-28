@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import {
   CheckCircle,
   XCircle,
@@ -7,18 +7,25 @@ import {
   BookOpen,
   ArrowLeft,
 } from "lucide-react";
-import { supabase } from "./supabaseClient"; // Make sure this import path is correct
+import { supabase } from "./supabaseClient";
 
-const API_URL = "http://localhost:8888/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8888/api";
 
 const AdminKnowledge = () => {
   const location = useLocation();
+  const navigate = useNavigate(); // Add this line
   const [activeTab, setActiveTab] = useState("suggestions");
   const [data, setData] = useState([]);
   const [statusFilter, setStatusFilter] = useState("pending");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+
+  // Function to handle logout
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/admin/login");
+  };
 
   // Get the current user's session on component load
   useEffect(() => {
@@ -77,12 +84,10 @@ const AdminKnowledge = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          // You could add an Authorization header here if your API requires it
-          // "Authorization": `Bearer ${currentUser.aud}`
         },
         body: JSON.stringify({
           status: newStatus,
-          approved_by: currentUser.id, // Use the user's unique ID
+          approved_by: currentUser.id,
         }),
       });
 
@@ -129,7 +134,12 @@ const AdminKnowledge = () => {
               Review and manage all AI knowledge suggestions and instructions.
             </p>
           </div>
-          <div className="w-[100px]" />
+          <button
+            onClick={handleLogout}
+            className="text-sm text-red-600 hover:text-red-700 font-medium"
+          >
+            Logout
+          </button>
         </div>
 
         <div className="border-b border-gray-200">

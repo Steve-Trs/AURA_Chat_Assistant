@@ -1,42 +1,50 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
 } from "react-router-dom";
+import { supabase } from "./supabaseClient";
 import InstagramChatAssistant from "./instagramChatAssistant";
 import AdminKnowledge from "./AdminKnowledge";
 import AdminLogin from "./AdminLogin";
 
-// Simple admin authentication hook
-const useAdminAuth = () => {
-  const [isAdmin, setIsAdmin] = React.useState(
-    localStorage.getItem("isAdmin") === "true"
-  );
-
-  const login = (password) => {
-    // Simple password check - in production, use proper authentication
-    if (password === "admin123") {
-      setIsAdmin(true);
-      localStorage.setItem("isAdmin", "true");
-      return true;
-    }
-    return false;
-  };
-
-  const logout = () => {
-    setIsAdmin(false);
-    localStorage.removeItem("isAdmin");
-  };
-
-  return { isAdmin, login, logout };
-};
-
-// Protected Route Component
+// Supabase-based Protected Route Component
 const ProtectedAdminRoute = ({ children }) => {
-  const { isAdmin } = useAdminAuth();
-  return isAdmin ? children : <Navigate to="/admin/login" />;
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check current session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsAuthenticated(!!session);
+      setIsLoading(false);
+    });
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsAuthenticated(!!session);
+      setIsLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 border-2 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
+          <span className="text-gray-600">Checking authentication...</span>
+        </div>
+      </div>
+    );
+  }
+
+  return isAuthenticated ? children : <Navigate to="/admin/login" replace />;
 };
 
 function App() {
@@ -49,7 +57,7 @@ function App() {
         {/* Admin login */}
         <Route path="/admin/login" element={<AdminLogin />} />
 
-        {/* Protected admin routes using a single component */}
+        {/* Protected admin dashboard */}
         <Route
           path="/admin-dashboard"
           element={
@@ -59,8 +67,14 @@ function App() {
           }
         />
 
-        {/* Redirect base admin URL to the knowledge page */}
-        <Route path="/admin" element={<Navigate to="/admin/suggestions" />} />
+        {/* Redirect base admin URL to the dashboard */}
+        <Route
+          path="/admin"
+          element={<Navigate to="/admin-dashboard" replace />}
+        />
+
+        {/* Catch all - redirect to home */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
