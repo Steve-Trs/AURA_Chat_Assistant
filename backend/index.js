@@ -5,11 +5,17 @@ import chatRoutes from "./chatRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 8888;
+
 app.use(
   cors({
     origin: "https://aura-chat-assistant.onrender.com",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    optionsSuccessStatus: 200, // For legacy browser support
   })
 );
+
 app.use(express.json());
 
 app.get("/", (req, res) => {
