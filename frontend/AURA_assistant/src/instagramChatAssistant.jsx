@@ -10,7 +10,7 @@ import {
 import ChatSidebar from "./ChatSidebar";
 import AddSuggestion from "./AddSuggestion";
 
-const API_URL = "http://localhost:8888/api";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8888/api";
 
 const InstagramChatAssistant = () => {
   const [messages, setMessages] = useState([]);
