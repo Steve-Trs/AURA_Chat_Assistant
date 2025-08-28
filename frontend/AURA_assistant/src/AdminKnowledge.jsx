@@ -13,7 +13,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8888/api";
 
 const AdminKnowledge = () => {
   const location = useLocation();
-  const navigate = useNavigate(); // Add this line
+  const navigate = useNavigate(); 
   const [activeTab, setActiveTab] = useState("suggestions");
   const [data, setData] = useState([]);
   const [statusFilter, setStatusFilter] = useState("pending");

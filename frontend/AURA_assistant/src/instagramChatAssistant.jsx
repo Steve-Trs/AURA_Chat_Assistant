@@ -26,6 +26,15 @@ const InstagramChatAssistant = () => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+  ////////////////////////////////////////
+  //debug logs to delete when all fixed
+  // Add to the beginning of InstagramChatAssistant component
+  useEffect(() => {
+    console.log("Environment check:");
+    console.log("VITE_API_URL from env:", import.meta.env.VITE_API_URL);
+    console.log("Final API_URL being used:", API_URL);
+  }, []);
+  /////////////////////////////////////////
 
   useEffect(() => {
     scrollToBottom();
@@ -38,13 +47,26 @@ const InstagramChatAssistant = () => {
   // Load all chats from backend
   const loadChats = async () => {
     try {
-      const response = await fetch(`${API_URL}/chats`);
-      if (response.ok) {
-        const data = await response.json();
-        setChats(data);
+      console.log("Loading chats from:", `${API_URL}/chats`);
+      const response = await fetch(`${API_URL}/chats`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+
+      const data = await response.json();
+      console.log("Chats loaded successfully:", data.length);
+      setChats(data);
     } catch (error) {
       console.error("Error loading chats:", error);
+      console.error("API_URL being used:", API_URL);
+      // Optionally show user-friendly error message
+      // setError("Failed to load chat history. Please try again.");
     }
   };
 
