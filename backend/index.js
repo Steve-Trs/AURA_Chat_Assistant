@@ -5,6 +5,7 @@ import chatRoutes from "./chatRoutes.js";
 const app = express();
 const port = process.env.PORT || 8888;
 
+// CORS configuration
 app.use(
   cors({
     origin: [
@@ -25,14 +26,19 @@ app.use(
   })
 );
 
-app.options("*", cors());
 app.use(express.json());
 
+// Root endpoint
 app.get("/", (req, res) => {
   res.send("Insta AI assistant Backend is running!");
 });
 
-app.use("/api", chatRoutes);
+// Mount the router with error handling
+try {
+  app.use("/api", chatRoutes);
+} catch (error) {
+  console.error("Error mounting routes:", error);
+}
 
 app.listen(port, () => {
   console.log(`Backend server listening at http://localhost:${port}`);
