@@ -35,7 +35,7 @@ const getActivePrompt = async () => {
       .eq("is_active", true)
       .order("created_at", { ascending: false })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     if (error) {
       console.error("Error fetching prompt:", error);
