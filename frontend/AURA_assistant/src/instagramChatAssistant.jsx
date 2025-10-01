@@ -26,15 +26,7 @@ const InstagramChatAssistant = () => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-  ////////////////////////////////////////
-  //debug logs to delete when all fixed
-  // Add to the beginning of InstagramChatAssistant component
-  useEffect(() => {
-    console.log("Environment check:");
-    console.log("VITE_API_URL from env:", import.meta.env.VITE_API_URL);
-    console.log("Final API_URL being used:", API_URL);
-  }, []);
-  /////////////////////////////////////////
+
 
   useEffect(() => {
     scrollToBottom();
