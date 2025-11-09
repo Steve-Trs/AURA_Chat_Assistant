@@ -1,4 +1,4 @@
-import MultipleChatSidebar from "./MultipleChatSidebar.jsx";
+import MultipleChatSideBar from "./MultipleChatSideBar.jsx";
 import MultipleChatHeader from "./MultipleChatHeader.jsx";
 import MultipleChatMessages from "./MultipleChatMessages.jsx";
 import MultipleChatInput from "./MultipleChatInput.jsx";
@@ -7,7 +7,7 @@ const MultipleChatLayout = ({ state, handlers }) => {
   return (
     <div className="flex h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Sidebar */}
-      <MultipleChatSidebar state={state} handlers={handlers} />
+      <MultipleChatSideBar state={state} handlers={handlers} />
 
       {/* Main Chat Area */}
       <div className="flex-1 flex flex-col">
