@@ -1,7 +1,7 @@
-import MultipleChatSidebar from "./MultipleChatSidebar";
-import MultipleChatHeader from "./MultipleChatHeader";
-import MultipleChatMessages from "./MultipleChatMessages";
-import MultipleChatInput from "./MultipleChatInput";
+import MultipleChatSidebar from "./MultipleChatSidebar.jsx";
+import MultipleChatHeader from "./MultipleChatHeader.jsx";
+import MultipleChatMessages from "./MultipleChatMessages.jsx";
+import MultipleChatInput from "./MultipleChatInput.jsx";
 
 const MultipleChatLayout = ({ state, handlers }) => {
   return (
