@@ -9,6 +9,11 @@ import { supabase } from "./supabaseClient";
 import InstagramChatAssistant from "./instagramChatAssistant";
 import AdminKnowledge from "./AdminKnowledge";
 import AdminLogin from "./AdminLogin";
+//=========== My AIs =================//
+import MultiplePersonalAIChat from "./multipleAI/MultiplePersonalAIChat";
+import PersonalLogin from "./multipleAI/PersonalLogin";
+import ProtectedPersonalRoute from "./multipleAI/ProtectedPersonalRoute";
+//====================================//
 
 // Supabase-based Protected Route Component
 const ProtectedAdminRoute = ({ children }) => {
@@ -71,6 +76,16 @@ function App() {
         <Route
           path="/admin"
           element={<Navigate to="/admin-dashboard" replace />}
+        />
+        {/* My Secret Personal AI Chat => Hidden Route */}
+        <Route path="/personal-ai-login" element={<PersonalLogin />} />
+        <Route
+          path="/personal-ai"
+          element={
+            <ProtectedPersonalRoute>
+              <MultiplePersonalAIChat />
+            </ProtectedPersonalRoute>
+          }
         />
 
         {/* Catch all - redirect to home */}
