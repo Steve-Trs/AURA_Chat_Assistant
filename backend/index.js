@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import chatRoutes from "./chatRoutes.js";
+import multipleRoutes from "./multipleAIBackend/multipleRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 8888;
@@ -38,6 +39,11 @@ try {
   app.use("/api", chatRoutes);
 } catch (error) {
   console.error("Error mounting routes:", error);
+}
+try {
+  app.use("/api/personal", multipleRoutes);
+} catch (error) {
+  console.error("Error mounting personal routes:", error);
 }
 
 app.listen(port, () => {
