@@ -1,9 +1,8 @@
-// components/multipleAI/PersonalLogin.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, Mail, Lock, AlertCircle } from "lucide-react";
 
-const API_URL = "http://localhost:8888/api/personal";
+const API_URL = import.meta.env.VITE_PERSONAL_API_URL;
 
 const PersonalLogin = () => {
   const [email, setEmail] = useState("");
