@@ -57,7 +57,7 @@ const MultipleChatHeader = ({ state, handlers }) => {
                       setSelectedPrompt(key);
                       setShowPromptDropdown(false);
                     }}
-                    className={`w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors ${
+                    className={`w-full flex justify-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors ${
                       selectedPrompt === key ? "bg-blue-50" : ""
                     }`}
                   >
