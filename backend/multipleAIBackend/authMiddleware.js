@@ -1,11 +1,7 @@
-// backend/middleware/authMiddleware.js
-
 import { createClient } from "@supabase/supabase-js";
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY;
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-// IMPORTANT: This version requires the user to pass the access_token in the Authorization header.
 
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
